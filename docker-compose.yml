@@ -13,7 +13,11 @@ services:
       - database
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        VUE_APP_BACKEND_BASE_URL: http://localhost:3000
+        VUE_APP_PROJECT_TITLE: "Ship Manager 2.0"
     ports:
       - "80:80"
     depends_on:

@@ -1,4 +1,4 @@
-FROM node:carbon-alpine
+FROM node:carbon
 
 ENV DEBUG expresso:*,gg:*
 
