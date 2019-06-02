@@ -1,0 +1,11 @@
+replicaCount: 1
+appName: mongodb
+env: development
+
+image:
+  name: mongo
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 80

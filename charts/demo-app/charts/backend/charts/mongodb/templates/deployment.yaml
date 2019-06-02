@@ -23,22 +23,13 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: IfNotPresent
-          env:
-            - name: NODE_ENV
-              value: {{ .Values.environment.NODE_ENV }}
-            - name: VUE_APP_BACKEND_BASE_URL
-              value: {{ (default (tpl "http://backend.{{.Release.Namespace}}.svc.cluster.local" .) .Values.environment.VUE_APP_BACKEND_BASE_URL) | quote}}
-            - name: VUE_APP_PROJECT_TITLE
-              value: {{ (default (tpl "Ship Manager ({{.Values.image.tag}})" .) .Values.environment.VUE_APP_PROJECT_TITLE) | quote }}
           ports:
-            - name: http
-              containerPort: 80
+            - name: mongo
+              containerPort: 27017
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+            tcpSocket:
+              port: mongo
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            tcpSocket:
+              port: mongo
