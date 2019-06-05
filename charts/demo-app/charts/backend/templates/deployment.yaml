@@ -25,7 +25,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: DATABASE_MONGODB_URI
-              value: {{ (default (tpl "mongodb://mongodb.{{.Release.Namespace}}.svc.cluster.local" .) .Values.environment.DATABASE_MONGODB_URI) | quote}}
+              value: {{ (default (tpl "mongodb://mongodb.{{.Release.Namespace}}.svc.cluster.local:3435" .) .Values.environment.DATABASE_MONGODB_URI) | quote}}
             - name: DATABASE_MONGODB_DBNAME
               value: {{ (default (tpl "ship-manager-{{.Release.Namespace}}" .) .Values.environment.DATABASE_MONGODB_DBNAME) | quote }}
           ports:
@@ -34,9 +34,9 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /ping
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /ping
               port: http
