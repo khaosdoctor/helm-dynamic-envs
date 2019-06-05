@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ default .Release.Namespace .Values.namespace }}
+  labels:
+    app: {{ .Values.appName }}
+    env: {{ .Values.global.env }}
+    version: {{ .Values.global.imageTag}}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  rules:
+    - host: {{ .Values.ingress.hostname }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ .Values.appName }}
+              servicePort: http
