@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.frontend.appName }}
     env: {{ .Values.global.env }}
-    version: {{ .Values.frontend.image.tag }}
+    version: {{ .Values.global.imageTag }}
 spec:
   replicas: {{ .Values.global.replicaCount }}
   selector:

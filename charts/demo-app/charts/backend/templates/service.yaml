@@ -5,7 +5,7 @@ metadata:
   namespace: {{ default .Release.Namespace .Values.namespace }}
   labels:
     app: {{ .Values.name }}
-    version: {{ .Values.image.tag }}
+    version: {{ .Values.global.imageTag }}
     env: {{ .Values.global.env }}
 spec:
   type: {{ .Values.service.type }}
