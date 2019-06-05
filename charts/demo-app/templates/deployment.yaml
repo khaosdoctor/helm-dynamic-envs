@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.appName }}
-  namespace: {{ default .Release.Namespace .Values.namespace }}
+  name: {{ .Values.frontend.appName }}
+  namespace: {{ default .Release.Namespace .Values.frontend.namespace }}
   labels:
-    app: {{ .Values.appName }}
-    env: {{ .Values.env }}
-    version: {{ .Values.image.tag }}
+    app: {{ .Values.frontend.appName }}
+    env: {{ .Values.global.env }}
+    version: {{ .Values.frontend.image.tag }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.global.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.appName }}
-      env: {{ .Values.env }}
+      app: {{ .Values.frontend.appName }}
+      env: {{ .Values.global.env }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appName }}
-        env: {{ .Values.env }}
+        app: {{ .Values.frontend.appName }}
+        env: {{ .Values.global.env }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.frontend.image.name }}:{{ .Values.global.imageTag }}"
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_ENV
-              value: {{ .Values.environment.NODE_ENV }}
+              value: {{ .Values.frontend.environment.NODE_ENV }}
             - name: VUE_APP_BACKEND_BASE_URL
-              value: {{ (default (tpl "http://backend.{{.Release.Namespace}}.svc.cluster.local" .) .Values.environment.VUE_APP_BACKEND_BASE_URL) | quote}}
+              value: {{ (default (tpl "http://backend.{{.Release.Namespace}}.svc.cluster.local" .) .Values.frontend.environment.VUE_APP_BACKEND_BASE_URL) | quote}}
             - name: VUE_APP_PROJECT_TITLE
-              value: {{ (default (tpl "Ship Manager ({{.Values.image.tag}})" .) .Values.environment.VUE_APP_PROJECT_TITLE) | quote }}
+              value: {{ (default (tpl "Ship Manager ({{.Values.frontend.image.tag}})" .) .Values.frontend.environment.VUE_APP_PROJECT_TITLE) | quote }}
           ports:
             - name: http
               containerPort: 80

@@ -1,22 +1,36 @@
-replicaCount: 1
-appName: frontend
-env: development
+global:
+  replicaCount: 1
+  env: development
+  imageTag: latest
 
-image:
-  name: khaosdoctor/event-sourcing-frontend
-  tag: latest
+frontend:
+  appName: frontend
 
-service:
-  type: ClusterIP
-  port: 80
+  image:
+    name: khaosdoctor/event-sourcing-frontend
 
-ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
-  hosts:
-    - host: chart-example.local
-      paths: []
+  service:
+    type: ClusterIP
+    port: 80
 
-environment:
-  NODE_ENV: development
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: addon-http-application-routing
+    hostname: demo-app.f8b8184f326740f9b169.eastus.aksapp.io
+
+  environment:
+    NODE_ENV: development
+
+backend:
+  appName: backend
+
+  image:
+    name: khaosdoctor/event-sourcing-backend
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  environment:
+    NODE_ENV: development

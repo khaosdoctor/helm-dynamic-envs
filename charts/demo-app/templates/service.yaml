@@ -1,19 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.appName }}
-  namespace: {{ default .Release.Namespace .Values.namespace }}
+  name: {{ .Values.frontend.appName }}
+  namespace: {{ default .Release.Namespace .Values.frontend.namespace }}
   labels:
-    app: {{ .Values.appName }}
-    version: {{ .Values.image.tag }}
-    env: {{ .Values.env }}
+    app: {{ .Values.frontend.appName }}
+    env: {{ .Values.global.env }}
+    version: {{ .Values.frontend.image.tag }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.frontend.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ .Values.frontend.service.port }}
       targetPort: http
       protocol: TCP
       name: http
   selector:
-    app: {{ .Values.appName }}
-    env: {{ .Values.env }}
+    app: {{ .Values.frontend.appName }}
+    env: {{ .Values.global.env }}

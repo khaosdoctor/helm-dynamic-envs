@@ -5,23 +5,23 @@ metadata:
   namespace: {{ default .Release.Namespace .Values.namespace }}
   labels:
     app: {{ .Values.appName }}
-    env: {{ .Values.env }}
+    env: {{ .Values.global.env }}
     version: {{ .Values.image.tag }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.global.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Values.appName }}
-      env: {{ .Values.env }}
+      env: {{ .Values.global.env }}
   template:
     metadata:
       labels:
         app: {{ .Values.appName }}
-        env: {{ .Values.env }}
+        env: {{ .Values.global.env }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.name }}:{{ .Values.global.imageTag }}"
           imagePullPolicy: IfNotPresent
           env:
             - name: DATABASE_MONGODB_URI
