@@ -29,7 +29,7 @@ spec:
             - name: VUE_APP_BACKEND_BASE_URL
               value: {{ (default (tpl "http://backend.{{.Release.Namespace}}.svc.cluster.local" .) .Values.frontend.environment.VUE_APP_BACKEND_BASE_URL) | quote}}
             - name: VUE_APP_PROJECT_TITLE
-              value: {{ (default (tpl "Ship Manager ({{.Values.frontend.image.tag}})" .) .Values.frontend.environment.VUE_APP_PROJECT_TITLE) | quote }}
+              value: {{ (default (tpl "Ship Manager ({{.Values.global.imageTag}})" .) .Values.frontend.environment.VUE_APP_PROJECT_TITLE) | quote }}
           ports:
             - name: http
               containerPort: 80

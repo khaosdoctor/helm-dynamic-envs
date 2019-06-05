@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.appName }}
     version: {{ .Values.image.tag }}
-    env: {{ .Values.env }}
+    env: {{ .Values.global.env }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -16,4 +16,4 @@ spec:
       name: default
   selector:
     app: {{ .Values.appName }}
-    env: {{ .Values.env }}
+    env: {{ .Values.global.env }}
