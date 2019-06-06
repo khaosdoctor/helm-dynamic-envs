@@ -2,6 +2,10 @@
 
 > Code for my talk about dynamic testing environments with Kubernetes and Helm (Original application [here](https://github.com/khaosdoctor/event-sourcing-demo-app))
 
+Link to the [Azure Devops Repository](https://dev.azure.com/lsantos-projects/helm-dynamic-envs/)
+
+![](https://dev.azure.com/lsantos-projects/helm-dynamic-envs/_apis/build/status/Dynamic%20environment%20build)
+
 ## Summary
 
 - [Creating dynamic environments with Helm and Kubernetes](#creating-dynamic-environments-with-helm-and-kubernetes)
